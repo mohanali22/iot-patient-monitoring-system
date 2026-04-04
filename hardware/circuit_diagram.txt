@@ -1,0 +1,11 @@
+CIRCUIT CONNECTIONS
+
+Heart Rate Sensor → Arduino (Digital Pin)
+Temperature Sensor (LM35) → Arduino (Analog Pin A0)
+
+Buzzer → Arduino (Pin 8)
+LED → Arduino (Pin 13)
+
+Arduino → WiFi Module (ESP8266 or built-in ESP32)
+
+Power Supply → Arduino
