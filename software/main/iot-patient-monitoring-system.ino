@@ -1,8 +1,14 @@
+<<<<<<< HEAD:software/main/main.ino
 // ============================================================
 // IoT Patient Vital Signs Monitoring System
 // Sensors: LM35 (Temperature), Pulse Sensor (Heart Rate)
 // Connectivity: ESP8266 WiFi -> MQTT Broker
 // ============================================================
+=======
+const int tempSensor = A0;
+const int buzzer = 8;
+const int led = 13;
+>>>>>>> 581f97b485947394261e0eeb2806fc54a04269aa:software/main/iot-patient-monitoring-system.ino
 
 #include <SoftwareSerial.h>
 
@@ -49,6 +55,7 @@ float readTemperature() {
   return voltage * 100.0;
 }
 
+<<<<<<< HEAD:software/main/main.ino
 // -------------------------------------------------------
 int readHeartRate() {
   // Simple peak-detection average over HR_SAMPLE_COUNT samples
@@ -61,6 +68,25 @@ int readHeartRate() {
     if (val < trough) trough = val;
     sum += val;
     delay(10);
+=======
+void loop() {
+  int value = analogRead(tempSensor);
+
+  // Convert to temperature (LM35 style)
+  float temperature = (value * 5.0 / 1023.0) * 100;
+
+  // Send clean data
+  Serial.print("TEMP:");
+  Serial.println(temperature);
+
+  // Alert system
+  if (temperature > 37.5) {
+    digitalWrite(buzzer, HIGH);
+    digitalWrite(led, HIGH);
+  } else {
+    digitalWrite(buzzer, LOW);
+    digitalWrite(led, LOW);
+>>>>>>> 581f97b485947394261e0eeb2806fc54a04269aa:software/main/iot-patient-monitoring-system.ino
   }
 
   int amplitude = peak - trough;
