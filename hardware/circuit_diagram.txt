@@ -1,11 +1,47 @@
 CIRCUIT CONNECTIONS
+===================
 
-Heart Rate Sensor → Arduino (Digital Pin)
-Temperature Sensor (LM35) → Arduino (Analog Pin A0)
+SENSORS
+-------
+LM35 Temperature Sensor
+  VCC  → Arduino 3.3V
+  OUT  → Arduino Analog Pin A0
+  GND  → Arduino GND
 
-Buzzer → Arduino (Pin 8)
-LED → Arduino (Pin 13)
+Pulse Sensor (Heart Rate)
+  VCC  → Arduino 5V
+  SIG  → Arduino Analog Pin A1
+  GND  → Arduino GND
 
-Arduino → WiFi Module (ESP8266 or built-in ESP32)
+OUTPUTS
+-------
+Buzzer (active)
+  +    → Arduino Digital Pin 8
+  -    → Arduino GND
 
-Power Supply → Arduino
+LED (with 220Ω resistor in series)
+  +    → Arduino Digital Pin 13
+  -    → Arduino GND
+
+WIRELESS
+--------
+ESP8266 (e.g. NodeMCU or ESP-01)
+  TX   → Arduino Digital Pin 2  (ESP_RX)
+  RX   → Arduino Digital Pin 3  (ESP_TX)  [use 3.3V logic level shifter]
+  VCC  → 3.3V (dedicated regulator recommended, not Arduino 3.3V pin)
+  GND  → Arduino GND
+
+  Note: ESP8266 is 3.3V logic. Use a voltage divider or level shifter
+        on the Arduino TX → ESP RX line to avoid damaging the module.
+
+POWER
+-----
+Arduino Uno/Nano → USB or 7-12V DC barrel jack
+ESP8266          → Dedicated 3.3V 500mA+ regulator (AMS1117-3.3 recommended)
+
+NOTES
+-----
+- analogReference(INTERNAL) is set in firmware for 1.1V reference,
+  improving LM35 resolution at body temperature range.
+- Pulse sensor signal may need a 10µF capacitor across VCC/GND
+  to reduce noise.
